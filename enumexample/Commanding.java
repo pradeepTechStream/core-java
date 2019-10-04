@@ -19,8 +19,10 @@ public class Commanding {
         level.asLowerCase();
 
         /*
-         * 1-Enum has private constructor. 2-Object can be created for Enum. 3-Enum can implement Interface. 4-Enum can also have a bastract method, but
-         * abstract method need to be implemented by every Enum.
+         * 1-Enum has private constructor. 
+         * 2-Object can be created for Enum. 
+         * 3-Enum can implement Interface. 
+         * 4-Enum can also have a bastract method, but abstract method need to be implemented by every Enum.
          */
     }
 
