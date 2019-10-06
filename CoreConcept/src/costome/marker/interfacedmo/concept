@@ -1,0 +1,13 @@
+Marker/Tagging Interface:
+-It’s a kind of interface which has no method is known as marker interface. 
+-Serializable, Clonnable is the example of marker interface
+
+ 
+
+Use of Marker Interface:
+Marker Interfaces are used to indicate something to compiler/JVM. 
+If JVM see that a class is a object of Marker Interface then it will perform some special operation. 
+Example : with Serializable, Clonnable marker interface, 
+if JVM see a Class is Serialized/Clonnable then It will do some special operation on it, 
+similar way if JVM sees one Class is implemented custom marker interface which is created by ourself then the JVM do some special operation.
+
