@@ -8,7 +8,7 @@ static Logger logger = Logger.getLogger(CurrentClass.class.getName())
 -CurrentClass : class name for which we are creating Logger.
 -Every class has its own logger object.
 -Log4j provides the factory method to get Logger objects.
--We use Logger’s methods to generate log statements.
+-We use Loggerâ€™s methods to generate log statements.
 
 Loggers Method :
 -nfo(),debug(),warn(),fatal(),error()
@@ -40,6 +40,26 @@ Configuration :log4j.application
 -load required jar file : log4j , common-logging.
 -create log4j.properties file in src folder.
 -add property in properties file.
+
+Exmple : we can also provide logging information from external file.
+
+ private static final LogManager logManager = LogManager.getLogManager();
+    private static final Logger LOGGER = Logger.getLogger("confLogger");
+    static{
+        try {
+            logManager.readConfiguration(new FileInputStream("./javacodegeeks.properties"));
+        } catch (IOException exception) {
+            LOGGER.log(Level.SEVERE, "Error in loading configuration",exception);
+        }
+    }
+    
+   Note : Logging can be possible from System.out.println("---"),
+   -User can display log messages while program is running.
+   -But information can be available only for the time till program is running.
+   -But with the help of Logger we can display on Console as well as on external file.
+   -External file maintain hostory for log message and can be use for future references.
+   
+   
  
 
 
