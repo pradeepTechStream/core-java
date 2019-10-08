@@ -1,0 +1,68 @@
+Logging :
+-Logging is the process of writing log messages during the execution of a program to a central place.
+-Logging allows you to report and persist error,warning,info messages so that the messages can later be retrieved and analyzed.
+-The object which performs the logging in applications is typically just called Logger.
+
+How to create Logger :
+static Logger logger = Logger.getLogger(CurrentClass.class.getName())
+-CurrentClass : class name for which we are creating Logger.
+-Every class has its own logger object.
+-Log4j provides the factory method to get Logger objects.
+-We use Logger’s methods to generate log statements.
+
+Loggers Method :
+-nfo(),debug(),warn(),fatal(),error()
+-all method print message only.
+
+Levels:
+-Level is a class in the org.apache.log4j.* package.
+-We can also create Custom level.
+-Each level has a different priority order like:
+-debug < info < warn < error < fatal.
+-In addition to that you also have the levels OFF and ALL to turn the logging off or to log everything.
+-LOGGER.setLevel(Level.INFO);
+
+Appender
+-Appender is used to write messages into a file or Console or DB
+-Log4j has different types of appenders:
+	-FileAppender.
+	-ConsoleAppender.
+	-JDBCAppender.
+Layout
+-This is used to define the formatting in which logs will print in a repository.
+-We have different types of layouts:
+	-PatternLayout
+	-SimpleLayout
+	-XMLLayout
+	-HTMLLayout
+
+Configuration :log4j.application
+-load required jar file : log4j , common-logging.
+-create log4j.properties file in src folder.
+-add property in properties file.
+
+Exmple : we can also provide logging information from external file.
+
+ private static final LogManager logManager = LogManager.getLogManager();
+    private static final Logger LOGGER = Logger.getLogger("confLogger");
+    static{
+        try {
+            logManager.readConfiguration(new FileInputStream("./javacodegeeks.properties"));
+        } catch (IOException exception) {
+            LOGGER.log(Level.SEVERE, "Error in loading configuration",exception);
+        }
+    }
+    
+   Note : Logging can be possible from System.out.println("---"),
+   -User can display log messages while program is running.
+   -But information can be available only for the time till program is running.
+   -But with the help of Logger we can display on Console as well as on external file.
+   -External file maintain hostory for log message and can be use for future references.
+   
+   
+ 
+
+
+
+
+
