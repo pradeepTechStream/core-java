@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="de.bonprix.vaadin.example.dao.BankDao">
+
+	<select id="getAllBanks" resultType="de.bonprix.vaadin.example.model.Bank">
+		SELECT
+			bank_id as bankId,
+			bank_name as bankName 
+		from 
+			pm_bank
+
+	</select>
+
+</mapper>

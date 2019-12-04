@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="de.bonprix.vaadin.example.dao.BankInfoDao">
+
+	<update id="updateIntrSrvcChrge" parameterType="de.bonprix.vaadin.example.model.BankAccountInfo">
+		update
+		pm_bank_acc_info set bank_info_intr_rate=#{interest}
+		,bank_info_serv_charge=#{serviceCharge}
+		where
+		bank_info_name=#{name}
+		and
+		bank_info_acc_type=#{accountType}
+	</update>
+
+	<select id="getIntrSrvcChrg" resultType="de.bonprix.vaadin.example.model.BankAccountInfo">
+		Select
+		bank_info_intr_rate as interest,
+		bank_info_serv_charge as serviceCharge
+		from
+		pm_bank_acc_info
+
+		where
+		bank_info_name=#{name}
+		and
+		bank_info_acc_type=#{accountType}
+
+	</select>
+	<select id="getLoanInfo" resultType="de.bonprix.vaadin.example.model.BankAccountInfo"
+		parameterType="de.bonprix.vaadin.example.model.UserAccount">
+		select * from
+		(
+		select
+		i.bank_info_name as
+		name,i.bank_info_acc_type as accountType,i.bank_info_intr_rate as
+		interest,i.bank_info_serv_charge as serviceCharge
+		from
+		pm_user u,pm_bank
+		b,pm_acc_type a,pm_user_account s,pm_bank_acc_info i
+		where
+		s.bank_id=b.bank_id
+		and
+		s.user_id=u.user_id
+		and
+		s.acc_type_id=a.acc_type_id
+		and
+		u.first_name=#{firstName}
+		and
+		u.last_name=#{lastName}
+		and
+		u.user_age=#{age}
+		and
+		i.bank_info_name=b.bank_name
+		and
+		i.bank_info_acc_type=a.acc_type
+		)
+
+	</select>
+</mapper>

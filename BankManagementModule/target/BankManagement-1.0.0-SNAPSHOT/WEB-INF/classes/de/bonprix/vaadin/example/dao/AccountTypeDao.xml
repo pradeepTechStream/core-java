@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="de.bonprix.vaadin.example.dao.AccountTypeDao">
+
+	<select id="getAccountType" resultType="de.bonprix.vaadin.example.model.AccountType">
+		select
+		acc_type_id as id,
+		acc_type as accountType
+		from
+		pm_acc_type
+	</select>
+
+</mapper>

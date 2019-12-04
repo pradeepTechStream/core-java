@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="de.bonprix.vaadin.example.dao.UserAccountDao">
+
+	<insert id="addUserIntoAcc" parameterType="de.bonprix.vaadin.example.model.UserAccount">
+		insert into
+		pm_user_account (user_id, bank_id , acc_type_id ,balance )
+		values
+		(#{userId},#{bankId},#{accTypId},#{balance})
+	</insert>
+
+
+	<update id="updateUsrAccBal" parameterType="de.bonprix.vaadin.example.model.UserAccount">
+		update
+		pm_user_account set balance=#{balance}
+		where
+		user_id=#{userId}
+		and
+		bank_id=#{bankId}
+		and
+		acc_type_id=#{accTypId}
+	</update>
+
+
+	<select id="SearchForSingleRecord" resultType="de.bonprix.vaadin.example.model.UserAccount"
+		parameterType="de.bonprix.vaadin.example.model.UserAccount">
+		select
+		FIRST_NAME as firstName, LAST_NAME as lastName,
+		USER_AGE as age, USER_ADDRESS as address,
+		BANK_NAME as bankName,
+		ACC_TYPE as accType, BALANCE as balance
+		from
+		pm_user , pm_bank ,
+		pm_acc_type , pm_user_account
+		where
+		pm_user_account.bank_id=pm_bank.bank_id
+		and
+		pm_user_account.user_id=pm_user.user_id
+		and
+		pm_user_account.acc_type_id=pm_acc_type.acc_type_id
+		and
+		pm_user.first_name=#{firstName}
+		and
+		pm_user.last_name=#{lastName}
+		and
+		pm_user.user_age=#{age}
+		and
+		pm_bank.BANK_NAME=#{bankName}
+		and
+		pm_acc_type.ACC_TYPE=#{accType}
+
+
+	</select>
+
+
+
+	<select id="getLatestRecordList" resultType="de.bonprix.vaadin.example.model.UserAccount">
+
+		select
+		FIRST_NAME as firstName , LAST_NAME as lastName,
+		USER_AGE as age,
+		USER_ADDRESS as address,
+		BANK_NAME as bankName , ACC_TYPE as
+		accType,BALANCE as balance,
+		user_id as userId,bank_id as
+		bankId,acc_type_id as accTypId,useracc_id as id
+		from (
+		select
+		pm_user.first_name
+		,pm_user.last_name ,
+		pm_user.user_age
+		,pm_user.user_address ,
+		pm_bank.bank_name ,pm_acc_type.acc_type,
+		pm_user_account.balance,pm_user_account.user_id,pm_user_account.bank_id,
+		pm_user_account.acc_type_id,pm_user_account.useracc_id
+		from
+		pm_user , pm_bank , pm_acc_type , pm_user_account
+		where
+		pm_user_account.bank_id=pm_bank.bank_id
+		and
+		pm_user_account.user_id=pm_user.user_id
+		and
+		pm_user_account.acc_type_id=pm_acc_type.acc_type_id
+		order by
+		pm_user_account.created_date desc )
+		where 
+			<![CDATA[ ROWNUM <= 10 ]]>
+
+
+	</select>
+
+	<select id="displaySearchRecord" resultType="de.bonprix.vaadin.example.model.UserAccount"
+		parameterType="de.bonprix.vaadin.example.model.UserAccount">
+		select
+		FIRST_NAME as firstName, LAST_NAME as lastName,
+		USER_AGE as age,
+		USER_ADDRESS as
+		address,
+		BANK_NAME as bankName, ACC_TYPE as accType,
+		BALANCE as balance
+		from
+		pm_user , pm_bank , pm_acc_type ,
+		pm_user_account
+		<where>
+			pm_user_account.bank_id=pm_bank.bank_id
+			and
+			pm_user_account.user_id=pm_user.user_id
+			and
+			pm_user_account.acc_type_id=pm_acc_type.acc_type_id
+			<if test="firstName != null and firstName != '' ">
+				AND
+				pm_user.first_name=#{firstName}
+			</if>
+			<if test="lastName != null and lastName != '' ">
+				AND
+				pm_user.last_name=#{lastName}
+			</if>
+			<if test="age != 0  ">
+				AND
+				pm_user.user_age=#{age}
+			</if>
+		</where>
+	</select>
+
+	<select id="getAllDetails" resultType="de.bonprix.vaadin.example.model.UserAccount"
+		parameterType="de.bonprix.vaadin.example.model.UserAccount">
+		select
+		FIRST_NAME as firstName, LAST_NAME as lastName,
+		USER_AGE as age, USER_ADDRESS as address,
+		BANK_NAME as bankName,
+		ACC_TYPE as accType, BALANCE as balance
+		from
+		pm_user u,pm_bank
+		b,pm_acc_type a,pm_user_account s
+		where
+		s.bank_id=b.bank_id
+		and
+		s.user_id=u.user_id
+		and
+		s.acc_type_id=a.acc_type_id
+		and
+		b.bank_name like
+		'%'||#{bankName}||'%'
+		and
+		a.acc_type like '%'||#{accType}||'%'
+		order by
+		s.bank_id
+
+	</select>
+	
+	<select id="getAllUserRecords" resultType="de.bonprix.vaadin.example.model.UserAccount">
+
+		select
+		FIRST_NAME as firstName , LAST_NAME as lastName,
+		USER_AGE as age,
+		USER_ADDRESS as address,
+		BANK_NAME as bankName , ACC_TYPE as
+		accType,BALANCE as balance,
+		user_id as userId,bank_id as
+		bankId,acc_type_id as accTypId,useracc_id as id
+		from (
+		select
+		pm_user.first_name
+		,pm_user.last_name ,
+		pm_user.user_age
+		,pm_user.user_address ,
+		pm_bank.bank_name ,pm_acc_type.acc_type,
+		pm_user_account.balance,pm_user_account.user_id,pm_user_account.bank_id,
+		pm_user_account.acc_type_id,pm_user_account.useracc_id
+		from
+		pm_user , pm_bank , pm_acc_type , pm_user_account
+		where
+		pm_user_account.bank_id=pm_bank.bank_id
+		and
+		pm_user_account.user_id=pm_user.user_id
+		and
+		pm_user_account.acc_type_id=pm_acc_type.acc_type_id
+		order by
+		pm_user_account.created_date  )
+		
+
+
+	</select>
+	
+</mapper>

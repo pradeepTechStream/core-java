@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.bonprix.base.webbase</groupId>
+		<artifactId>WebBase</artifactId>
+		<version>3.8.29-SNAPSHOT</version>
+	</parent>
+
+	<groupId>de.bonprix.sample.BankManagement</groupId>
+	<packaging>war</packaging>
+	<version>1.0.0-SNAPSHOT</version>
+	
+	<name>BankManagement</name>
+
+	<scm>
+		<developerConnection>scm:svn:http://digistyle.bonprix.net/svn/Java/sample/VaadinSamples/trunk/BankManagement</developerConnection>
+		<connection>scm:svn:http://digistyle.bonprix.net/svn/Java/sample/VaadinSamples/trunk/BankManagement</connection>
+		<url>http://digistyle.bonprix.net/svn/Java/sample/VaadinSamples/trunk/BankManagement</url>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.bonprix.base.webbase</groupId>
+			<artifactId>WebBaseVaadinShell</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.bonprix.base.webbase</groupId>
+			<artifactId>WebBaseMyBatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.bonprix.base.webbase</groupId>
+			<artifactId>WebBaseTest</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- needed for access to some HttpServlet properties, only provided because it's part of any application server -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<artifactId>ojdbc6-64bit</artifactId>
+			<groupId>com.oracle.database</groupId>
+			<scope>system</scope>
+			<systemPath>${user.home}/Oracle/driver/ojdbc6.jar</systemPath>
+		</dependency>
+		<dependency>
+		   <groupId>org.vaadin.addons</groupId>
+		   <artifactId>vaadin-grid-util</artifactId>
+		   <version>1.0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-testbench</artifactId>
+			<version>4.0.2</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<artifactId>BankManagement</artifactId>
+</project>
